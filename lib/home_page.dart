@@ -96,7 +96,9 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>  MatrixPage(rowNumber: numberOfRows ,columnNumber: numberOfColumns)));
+                    builder: (context) =>  MatrixPage(rowNumber: numberOfRows,
+                        columnNumber: numberOfColumns)
+                ));
           },
           child: const Icon(Icons.arrow_forward_ios),
         ),

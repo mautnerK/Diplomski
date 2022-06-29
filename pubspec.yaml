@@ -37,6 +37,8 @@ dependencies:
   flutter_spinbox: ^0.9.0
   stepo: ^1.0.0
   matrix_input: ^1.1.0
+  fluttertoast: ^8.0.9
+  fraction: ^4.1.1
 
 dev_dependencies:
   flutter_test:

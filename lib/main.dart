@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:matrice/home_page.dart';
 import 'package:matrice/matrix_page.dart';
+import 'package:matrice/result_page.dart';
 
 void main() {
 
@@ -12,7 +13,8 @@ void main() {
     debugShowCheckedModeBanner: false,
     routes: {
       '/': (context) => const HomePage(),
-      '/matrix': (context) => const MatrixPage()
+      '/matrix': (context) => const MatrixPage(),
+      '/result': (context) => const ResultPage()
     },
   )
   );

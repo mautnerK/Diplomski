@@ -1,50 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fraction/fraction.dart';
 import 'package:matrix_input/matrix_input.dart';
-import 'package:matrice/helper.dart';
 
-class MatrixPage extends StatefulWidget {
-  const MatrixPage({super.key, required this.rowNumber, required this.columnNumber});
+class ResultPage extends StatefulWidget {
+  const ResultPage({super.key, required this.rowNumber,
+    required this.columnNumber,required this.result});
 
   final int rowNumber;
   final int columnNumber;
+  final List<double> result;
 
   @override
-  State<MatrixPage> createState() => _MatrixPageState();
+  State<ResultPage> createState() => _ResultPageState();
 }
 
-class _MatrixPageState extends State<MatrixPage> {
-
+class _ResultPageState extends State<ResultPage> {
   List<Widget> rowElements = [];
   List<Widget> rows = [];
   double marginSize = 0;
   List<TextEditingController> controllers = [];
   int nr = -1;
-  bool isButtonDisabled = true;
 
   @override
   void initState() {
     super.initState();
     createControllers();
     createMatrix();
-    disableButton();
+    updateMatrix();
   }
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style = ElevatedButton.styleFrom(
-        primary: Colors.deepPurple,
-        minimumSize: const Size(200, 50)
-    );
-
     double width = MediaQuery.of(context).size.width;
     createMarginSize(width);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Matrix'),
-        backgroundColor: Colors.deepPurple,
+          title: const Text('Result'),
+          backgroundColor: Colors.deepPurple,
       ),
       body: Column(
         children: [
@@ -56,45 +51,6 @@ class _MatrixPageState extends State<MatrixPage> {
             ),
           ),
           const SizedBox(height: 50),
-          ElevatedButton(
-              onPressed: isButtonDisabled ? () =>
-                  Helper().checkRegularity(widget.rowNumber,
-                      widget.columnNumber, controllers ) : null,
-              style: style,
-              child: const Text('REGULARITY') ),
-          const SizedBox(height: 5),
-          ElevatedButton(
-              onPressed: isButtonDisabled ? () => Helper().makeInverse(context, widget.rowNumber, widget.columnNumber, controllers) : null,
-              style: style,
-              child: const Text('INVERSE')),
-          const SizedBox(height: 5),
-          ElevatedButton(
-              onPressed: () {
-                Helper().makeTransposition();
-              },
-              style: style,
-              child: const Text('TRANSPOSITION')),
-          const SizedBox(height: 5),
-          ElevatedButton(
-              onPressed: () {
-                Helper().multiplyWithScalar();
-              },
-              style: style,
-              child: const Text('SCALAR MULTIPLICATION')),
-          const SizedBox(height: 5),
-          ElevatedButton(
-              onPressed: () {
-                Helper().add();
-              },
-              style: style,
-              child: const Text('ADDITION')),
-          const SizedBox(height: 5),
-          ElevatedButton(
-              onPressed: () {
-                Helper().multiply();
-              },
-              style: style,
-              child: const Text('MULTIPLICATION')),
         ],
       ),
     );
@@ -112,7 +68,7 @@ class _MatrixPageState extends State<MatrixPage> {
           matrixController:controllers[nr],
           keyboardType: TextInputType.number,
           style: const TextStyle(
-            fontSize: 25.0,
+            fontSize: 15.0,
             color: Colors.blueAccent,
             fontWeight: FontWeight.bold,
           )
@@ -138,12 +94,6 @@ class _MatrixPageState extends State<MatrixPage> {
     }
   }
 
-  disableButton() {
-    if (widget.rowNumber != widget.columnNumber) {
-      isButtonDisabled = false;
-    }
-  }
-
   createMarginSize(width) {
     switch(widget.columnNumber) {
       case 1: {marginSize = width*0.41;}
@@ -156,6 +106,28 @@ class _MatrixPageState extends State<MatrixPage> {
       break;
       case 5: {marginSize = width*0.08;}
       break;
+    }
+  }
+  updateMatrix(){
+    switch(widget.rowNumber){
+      case(2): {
+        controllers[0].text = Fraction.fromDouble(widget.result[0]).toString();
+        controllers[1].text = Fraction.fromDouble(widget.result[1]).toString();
+        controllers[2].text = Fraction.fromDouble(widget.result[2]).toString();
+        controllers[3].text = Fraction.fromDouble(widget.result[3]).toString();
+      }
+      break;
+      case(3): {
+        controllers[0].text = Fraction.fromDouble(widget.result[0]).toString();
+        controllers[1].text = Fraction.fromDouble(widget.result[1]).toString();
+        controllers[2].text = Fraction.fromDouble(widget.result[2]).toString();
+        controllers[3].text = Fraction.fromDouble(widget.result[3]).toString();
+        controllers[4].text = Fraction.fromDouble(widget.result[4]).toString();
+        controllers[5].text = Fraction.fromDouble(widget.result[5]).toString();
+        controllers[6].text = Fraction.fromDouble(widget.result[6]).toString();
+        controllers[7].text = Fraction.fromDouble(widget.result[7]).toString();
+        controllers[8].text = Fraction.fromDouble(widget.result[8]).toString();
+      }
     }
   }
 
@@ -223,14 +195,5 @@ class _MatrixPageState extends State<MatrixPage> {
     controllers.add(controller29);
     controllers.add(controller30);
     controllers.add(controller31);
-
   }
 }
-
-
-
-
-
-
-
-
