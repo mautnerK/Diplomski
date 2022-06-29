@@ -70,7 +70,7 @@ class _MatrixPageState extends State<MatrixPage> {
           const SizedBox(height: 5),
           ElevatedButton(
               onPressed: () {
-                Helper().makeTransposition();
+                Helper().makeTransposition(context, widget.rowNumber, widget.columnNumber, controllers);
               },
               style: style,
               child: const Text('TRANSPOSITION')),
