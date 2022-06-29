@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:matrice/result_page.dart';
 import 'package:matrix_input/matrix_input.dart';
 import 'package:matrice/helper.dart';
 
@@ -21,6 +22,7 @@ class _MatrixPageState extends State<MatrixPage> {
   List<TextEditingController> controllers = [];
   int nr = -1;
   bool isButtonDisabled = true;
+  TextEditingController scalarController = TextEditingController();
 
   @override
   void initState() {
@@ -77,7 +79,7 @@ class _MatrixPageState extends State<MatrixPage> {
           const SizedBox(height: 5),
           ElevatedButton(
               onPressed: () {
-                Helper().multiplyWithScalar();
+                showDialogForScalar(context);
               },
               style: style,
               child: const Text('SCALAR MULTIPLICATION')),
@@ -97,6 +99,43 @@ class _MatrixPageState extends State<MatrixPage> {
               child: const Text('MULTIPLICATION')),
         ],
       ),
+    );
+  }
+
+  showDialogForScalar(BuildContext context) {
+    Widget cancelButton = TextButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: const Text (
+          "Cancel"
+        )
+    );
+    Widget nextPageButton = TextButton(
+        onPressed: () {
+          Helper().multiplyWithScalar(double.parse(scalarController.text),
+              context, widget.rowNumber, widget.columnNumber, controllers);
+        },
+        child: const Text (
+          "Continue"
+        )
+    );
+    AlertDialog alertDialog = AlertDialog(
+      title: const Text ("Input scalar"),
+      content: TextField(
+        controller: scalarController,
+        keyboardType: TextInputType.number,
+      ),
+      actions: [
+        cancelButton,
+        nextPageButton
+      ],
+    );
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alertDialog;
+      },
     );
   }
 

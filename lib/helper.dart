@@ -239,7 +239,14 @@ class Helper {
       }
   }
 
-  multiplyWithScalar() {}
+  multiplyWithScalar(double scalar, BuildContext context, int rowNumber, int columnNumber,
+      List<TextEditingController> controllers) {
+    List<double> result = [];
+    for(int i = 0; i < controllers.length; i++){
+      result.add(double.parse(controllers[i].text) * scalar);
+    }
+    showPage(context, rowNumber, columnNumber, result);
+  }
 
   add() {}
 
@@ -253,6 +260,7 @@ class Helper {
                 columnNumber: numberOfColumns, result: result)
         ));
   }
+
   double determinant2x2(double firstElement, double secondElement,
       double thirdElement, double fourthElement){
     double determinant = (firstElement * fourthElement) -
