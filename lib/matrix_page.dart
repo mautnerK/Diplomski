@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:matrice/result_page.dart';
 import 'package:matrix_input/matrix_input.dart';
 import 'package:matrice/helper.dart';
 
 class MatrixPage extends StatefulWidget {
-  const MatrixPage({super.key, required this.rowNumber, required this.columnNumber});
+  const MatrixPage({super.key, required this.rowNumber,
+    required this.columnNumber});
 
   final int rowNumber;
   final int columnNumber;
@@ -15,7 +15,6 @@ class MatrixPage extends StatefulWidget {
 }
 
 class _MatrixPageState extends State<MatrixPage> {
-
   List<Widget> rowElements = [];
   List<Widget> rows = [];
   double marginSize = 0;
@@ -86,7 +85,8 @@ class _MatrixPageState extends State<MatrixPage> {
           const SizedBox(height: 5),
           ElevatedButton(
               onPressed: () {
-                Helper().add();
+                Helper().showSecondMatrixPage(context, widget.rowNumber,
+                    widget.columnNumber, controllers);
               },
               style: style,
               child: const Text('ADDITION')),
@@ -151,7 +151,7 @@ class _MatrixPageState extends State<MatrixPage> {
           matrixController:controllers[nr],
           keyboardType: TextInputType.number,
           style: const TextStyle(
-            fontSize: 25.0,
+            fontSize: 15.0,
             color: Colors.blueAccent,
             fontWeight: FontWeight.bold,
           )

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:matrice/matrix_page.dart';
 import 'package:matrice/result_page.dart';
+import 'package:matrice/second_matrix_page.dart';
 
 class Helper {
   bool regular = false;
+  List<TextEditingController> firstMatrixControllers = [];
 
   checkRegularity(int rowNumber, int columnNumber,  List<TextEditingController> controllers) {
     double firstElement = double.parse(controllers[0].text);
@@ -149,7 +152,7 @@ class Helper {
           firstElement];
         result = scalarMultiplication2x2(1/determinant, temp[0], temp[1],
             temp[2], temp[3]);
-       showPage(context, rowNumber, columnNumber, result);
+       showResultPage(context, rowNumber, columnNumber, result);
       }
       break;
       case 3: {
@@ -168,7 +171,7 @@ class Helper {
           determinant2x2(firstElement, secondElement, fourthElement, fifthElement)];
        List<double> temp=transpone3x3(temp1);
         result = scalarMultiplication3x3(1/determinant,temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8]);
-        showPage(context, rowNumber, columnNumber, result);
+        showResultPage(context, rowNumber, columnNumber, result);
       }
     }
   }
@@ -205,7 +208,7 @@ class Helper {
       case 2: {
         List<double> temp = [firstElement,secondElement,thirdElement,fourthElement];
         result = transpone2x2(temp);
-        showPage(context, rowNumber, columnNumber, result);
+        showResultPage(context, rowNumber, columnNumber, result);
       }
       break;
       case 3: {
@@ -213,7 +216,7 @@ class Helper {
           fourthElement,fifthElement,sixthElement,seventhElement,eighthElement,
           ninthElement];
         result = transpone3x3(temp);
-        showPage(context, rowNumber, columnNumber, result);
+        showResultPage(context, rowNumber, columnNumber, result);
       }
       break;
       case 4: {
@@ -222,7 +225,7 @@ class Helper {
           ninthElement, tenthElement, eleventhElement, twelfthElement,
           thirteenthElement, fourteenthElement,fifteenthElement, sixteenthElement];
         result = transpone4x4(temp);
-        showPage(context, rowNumber, columnNumber, result);
+        showResultPage(context, rowNumber, columnNumber, result);
       }
       break;
       case 5:{
@@ -234,30 +237,50 @@ class Helper {
           twentiethElement, twentyFirstElement, twentySecondElement,
           twentyThirdElement, twentyFourthElement, twentyFifthElement];
         result = transpone5x5(temp);
-        showPage(context, rowNumber, columnNumber, result);
+        showResultPage(context, rowNumber, columnNumber, result);
       }
       }
   }
 
-  multiplyWithScalar(double scalar, BuildContext context, int rowNumber, int columnNumber,
-      List<TextEditingController> controllers) {
+  multiplyWithScalar(double scalar, BuildContext context, int rowNumber,
+      int columnNumber, List<TextEditingController> controllers) {
     List<double> result = [];
     for(int i = 0; i < controllers.length; i++){
       result.add(double.parse(controllers[i].text) * scalar);
     }
-    showPage(context, rowNumber, columnNumber, result);
+    showResultPage(context, rowNumber, columnNumber, result);
   }
 
-  add() {}
+  add(BuildContext context, int rowNumber,
+      int columnNumber, List<TextEditingController> firstMatrixControllers,
+      List<TextEditingController> secondMatrixControllers) {
+    List<double> result = [];
+    for(int i = 0; i < firstMatrixControllers.length; i++){
+      result.add(double.parse(firstMatrixControllers[i].text)
+          + double.parse(secondMatrixControllers[i].text));
+    }
+    showResultPage(context, rowNumber, columnNumber, result);
+  }
 
-  multiply() {}
+  multiply() { }
 
-  showPage(BuildContext context, int numberOfRows, int numberOfColumns, result){
+  showResultPage(BuildContext context, int numberOfRows, int numberOfColumns, result){
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => ResultPage(rowNumber: numberOfRows,
                 columnNumber: numberOfColumns, result: result)
+        ));
+  }
+
+  showSecondMatrixPage(BuildContext context, int numberOfRows,
+      int numberOfColumns, List<TextEditingController> firstMatrixControllersFromLastPage) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SecondMatrixPage(rowNumber: numberOfRows,
+                columnNumber: numberOfColumns,
+                firstMatrixControllers: firstMatrixControllersFromLastPage)
         ));
   }
 
@@ -273,16 +296,19 @@ class Helper {
       matrix[7], matrix[2], matrix[5], matrix[8] ];
     return result;
   }
+
   List<double> transpone2x2(List<double> matrix){
     List<double>result=[matrix[0], matrix[2], matrix[1], matrix[3] ];
     return result;
   }
+
   List<double> transpone4x4(List<double> matrix){
     List<double>result=[matrix[0], matrix[4], matrix[8], matrix[12], matrix[1],
       matrix[5], matrix[9], matrix[13], matrix[2], matrix[6],
       matrix[10], matrix[14], matrix[3], matrix[7], matrix[11], matrix[15]];
     return result;
   }
+
   List<double> transpone5x5(List<double> matrix){
     List<double>result=[matrix[0], matrix[5], matrix[10], matrix[15], matrix[20],
       matrix[1], matrix[6], matrix[11], matrix[16], matrix[21],
@@ -370,6 +396,7 @@ class Helper {
  double scalarMultiplication(double scalar, double firstElement){
     return scalar * firstElement;
  }
+
   List<double> scalarMultiplication2x2(double scalar, double firstElement,
       double secondElement, double thirdElement, double fourthElement){
     List<double> result= [];
@@ -379,6 +406,7 @@ class Helper {
     result.add(scalar * fourthElement);
     return result;
   }
+
   List<double> scalarMultiplication3x3(double scalar, double firstElement,
       double secondElement, double thirdElement, double fourthElement,
       double fifthElement, double sixthElement, double seventhElement,
@@ -396,6 +424,7 @@ class Helper {
 
     return result;
   }
+
   List<double> scalarMultiplication4x4(double scalar, double firstElement, double secondElement,
       double thirdElement,  double fourthElement, double fifthElement,
       double sixthElement,  double seventhElement, double eighthElement,

@@ -103,7 +103,6 @@ class _HomePageState extends State<HomePage> {
           child: const Icon(Icons.arrow_forward_ios),
         ),
       ),
-
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:matrice/home_page.dart';
 import 'package:matrice/matrix_page.dart';
 import 'package:matrice/result_page.dart';
+import 'package:matrice/second_matrix_page.dart';
 
 void main() {
 
@@ -14,7 +15,8 @@ void main() {
     routes: {
       '/': (context) => const HomePage(),
       '/matrix': (context) => const MatrixPage(),
-      '/result': (context) => const ResultPage()
+      '/result': (context) => const ResultPage(),
+      '/secondMatrixPage': (context) => SecondMatrixPage()
     },
   )
   );
