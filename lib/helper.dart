@@ -200,24 +200,28 @@ class Helper {
       List<TextEditingController> firstMatrixControllers,
       List<TextEditingController> secondMatrixControllers) {
     List<double> result = [];
-
+    List <double> secondMatrixTransponed = transpone(rowNumber, columnNumber, secondMatrixControllers);
+    int j = 0;
+    int temp2 = 0;
+    int accomulation = columnNumberFirstMatrix;
+    for(int m = 0; m < rowNumber; m++) {
       int k = 0;
-    double sum = 0;
-    int i = 0;
-    int addition = 0;
-    int addition2 = 0;
-    for (int j = 0; j < rowNumber; j++){
-      for(i = 0; i < columnNumberFirstMatrix; i++){
-        sum += double.parse(firstMatrixControllers[i + addition].text) * double.parse(secondMatrixControllers[k + addition2].text);
-        k += columnNumber;
+      for (int i = 0; i < columnNumber; i++) {
+        double temp = 0;
+        for ( j = temp2; j < accomulation; j++) {
+          temp += double.parse(firstMatrixControllers[j].text) *
+              secondMatrixTransponed[k];
+          k++;
         }
-      addition += columnNumberFirstMatrix;
-      addition2 += 1;
+        result.add(temp);
+      }
       k = 0;
-      result.add(sum);
+      temp2 += columnNumberFirstMatrix;
+      accomulation += columnNumberFirstMatrix;
     }
-  }
 
+    showResultPage(context, rowNumber, columnNumber, result);
+  }
   showResultPage(BuildContext context, int numberOfRows, int numberOfColumns,
       result){
     Navigator.push(
@@ -228,14 +232,15 @@ class Helper {
         ));
   }
 
-  showSecondMatrixPage(BuildContext context, int numberOfRows, int columnNumberFirstMatrix,
-      int numberOfColumns,  List<TextEditingController> firstMatrixControllersFromLastPage,
+  showSecondMatrixPage(BuildContext context, int numberOfRows,  int numberOfColumns,
+      int columnNumberFirstMatrix,
+       List<TextEditingController> firstMatrixControllersFromLastPage,
       bool isAddition, bool isMultiplication) {
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => SecondMatrixPage(rowNumber: numberOfRows,
-                columnNumberFirstMatrix: columnNumberFirstMatrix, columnNumber: numberOfColumns,
+                columnNumber: numberOfColumns, columnNumberFirstMatrix: columnNumberFirstMatrix,
                 firstMatrixControllers: firstMatrixControllersFromLastPage,
                 isAddition: isAddition, isMultiplication: isMultiplication)
         ));
