@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:matrice/matrix_page.dart';
+import 'package:matrice/column_size_page.dart';
+import 'package:matrice/home_page.dart';
 import 'package:matrice/result_page.dart';
 import 'package:matrice/second_matrix_page.dart';
 
@@ -39,55 +40,45 @@ class Helper {
         if(controllers[0].text != '0'){
           showMessage("Matrix is regular");
           regular = true;
-        }
-        else{
+        } else{
           showMessage("Matrix is not regular");
         }
       }
       break;
       case 2: {
-
-        if(
-        (firstElement * fourthElement)-(secondElement * thirdElement) != 0
-        ){
+        if((firstElement * fourthElement)-(secondElement * thirdElement) != 0) {
           showMessage("Matrix is regular");
           regular = true;
-        }
-        else{
+        } else{
           showMessage("Matrix is not regular");
         }
       }
       break;
       case 3: {
-
-        if( determinant3x3(firstElement, secondElement, thirdElement, fourthElement, fifthElement,
-             sixthElement, seventhElement, eighthElement, ninthElement) != 0
-        ){
+        if(determinant3x3(firstElement, secondElement, thirdElement,
+            fourthElement, fifthElement, sixthElement, seventhElement,
+            eighthElement, ninthElement) != 0) {
           showMessage("Matrix is regular");
           regular = true;
-        }
-        else{
+        } else{
           showMessage("Matrix is not regular");
         }
       }
       break;
       case 4: {
-
        if(determinant4x4(firstElement, secondElement, thirdElement,
             fourthElement, fifthElement, sixthElement, seventhElement,
             eighthElement, ninthElement, tenthElement, eleventhElement,
             twelfthElement, thirteenthElement, fourteenthElement,
-            fifteenthElement, sixteenthElement) != 0){
+            fifteenthElement, sixteenthElement) != 0) {
             showMessage("Matrix is regular");
             regular = true;
-       }
-        else{
+       } else{
          showMessage("Matrix is not regular");
        }
       }
       break;
       case 5: {
-
         double determinant = determinant5x5(firstElement, secondElement,
             thirdElement, fourthElement, fifthElement, sixthElement,
             seventhElement, eighthElement, ninthElement, tenthElement,
@@ -96,11 +87,10 @@ class Helper {
             seventeenthElement, eighteenthElement, nineteenthElement,
             twentiethElement, twentyFirstElement, twentySecondElement,
             twentyThirdElement, twentyFourthElement, twentyFifthElement);
-        if(determinant != 0){
+        if(determinant != 0) {
           showMessage("Matrix is regular");
           regular = true;
-        }
-        else{
+        } else{
           showMessage("Matrix is not regular");
         }
       }
@@ -170,7 +160,8 @@ class Helper {
           -determinant2x2(firstElement, thirdElement, fourthElement, sixthElement),
           determinant2x2(firstElement, secondElement, fourthElement, fifthElement)];
        List<double> temp=transpone3x3(temp1);
-        result = scalarMultiplication3x3(1/determinant,temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8]);
+        result = scalarMultiplication3x3(1/determinant,temp[0], temp[1],
+            temp[2], temp[3], temp[4], temp[5], temp[6], temp[7], temp[8]);
         showResultPage(context, rowNumber, columnNumber, result);
       }
     }
@@ -179,68 +170,10 @@ class Helper {
   makeTransposition(BuildContext context, int rowNumber, int columnNumber,
       List<TextEditingController> controllers) {
     List<double> result = [];
-    double firstElement = double.parse(controllers[0].text);
-    double secondElement = double.parse(controllers[1].text);
-    double thirdElement = double.parse(controllers[2].text);
-    double fourthElement = double.parse(controllers[3].text);
-    double fifthElement = double.parse(controllers[4].text);
-    double sixthElement = double.parse(controllers[5].text);
-    double seventhElement = double.parse(controllers[6].text);
-    double eighthElement = double.parse(controllers[7].text);
-    double ninthElement = double.parse(controllers[8].text);
-    double tenthElement = double.parse(controllers[9].text);
-    double eleventhElement = double.parse(controllers[10].text);
-    double twelfthElement = double.parse(controllers[11].text);
-    double thirteenthElement = double.parse(controllers[12].text);
-    double fourteenthElement = double.parse(controllers[13].text);
-    double fifteenthElement = double.parse(controllers[14].text);
-    double sixteenthElement = double.parse(controllers[15].text);
-    double seventeenthElement = double.parse(controllers[16].text);
-    double eighteenthElement = double.parse(controllers[17].text);
-    double nineteenthElement = double.parse(controllers[18].text);
-    double twentiethElement = double.parse(controllers[19].text);
-    double twentyFirstElement = double.parse(controllers[20].text);
-    double twentySecondElement = double.parse(controllers[21].text);
-    double twentyThirdElement = double.parse(controllers[22].text);
-    double twentyFourthElement = double.parse(controllers[23].text);
-    double twentyFifthElement = double.parse(controllers[24].text);
-    switch(rowNumber) {
-      case 2: {
-        List<double> temp = [firstElement,secondElement,thirdElement,fourthElement];
-        result = transpone2x2(temp);
-        showResultPage(context, rowNumber, columnNumber, result);
-      }
-      break;
-      case 3: {
-        List<double> temp = [firstElement,secondElement,thirdElement,
-          fourthElement,fifthElement,sixthElement,seventhElement,eighthElement,
-          ninthElement];
-        result = transpone3x3(temp);
-        showResultPage(context, rowNumber, columnNumber, result);
-      }
-      break;
-      case 4: {
-        List<double> temp = [firstElement,secondElement,thirdElement,
-          fourthElement,fifthElement,sixthElement,seventhElement,eighthElement,
-          ninthElement, tenthElement, eleventhElement, twelfthElement,
-          thirteenthElement, fourteenthElement,fifteenthElement, sixteenthElement];
-        result = transpone4x4(temp);
-        showResultPage(context, rowNumber, columnNumber, result);
-      }
-      break;
-      case 5:{
-        List<double> temp = [firstElement,secondElement,thirdElement,
-          fourthElement,fifthElement,sixthElement,seventhElement,eighthElement,
-          ninthElement, tenthElement, eleventhElement, twelfthElement,
-          thirteenthElement, fourteenthElement,fifteenthElement, sixteenthElement,
-          seventeenthElement, eighteenthElement, nineteenthElement,
-          twentiethElement, twentyFirstElement, twentySecondElement,
-          twentyThirdElement, twentyFourthElement, twentyFifthElement];
-        result = transpone5x5(temp);
-        showResultPage(context, rowNumber, columnNumber, result);
-      }
-      }
+    result = transpone(rowNumber, columnNumber, controllers);
+    showResultPage(context, columnNumber, rowNumber, result);
   }
+
 
   multiplyWithScalar(double scalar, BuildContext context, int rowNumber,
       int columnNumber, List<TextEditingController> controllers) {
@@ -251,20 +184,42 @@ class Helper {
     showResultPage(context, rowNumber, columnNumber, result);
   }
 
-  add(BuildContext context, int rowNumber,
-      int columnNumber, List<TextEditingController> firstMatrixControllers,
+  add(BuildContext context, int rowNumber, int columnNumber,
+      List<TextEditingController> firstMatrixControllers,
       List<TextEditingController> secondMatrixControllers) {
     List<double> result = [];
-    for(int i = 0; i < firstMatrixControllers.length; i++){
+    for(int i = 0; i < firstMatrixControllers.length; i++) {
       result.add(double.parse(firstMatrixControllers[i].text)
           + double.parse(secondMatrixControllers[i].text));
     }
     showResultPage(context, rowNumber, columnNumber, result);
   }
 
-  multiply() { }
+  multiply(BuildContext context, int rowNumber,
+      int columnNumber, int columnNumberFirstMatrix,
+      List<TextEditingController> firstMatrixControllers,
+      List<TextEditingController> secondMatrixControllers) {
+    List<double> result = [];
 
-  showResultPage(BuildContext context, int numberOfRows, int numberOfColumns, result){
+      int k = 0;
+    double sum = 0;
+    int i = 0;
+    int addition = 0;
+    int addition2 = 0;
+    for (int j = 0; j < rowNumber; j++){
+      for(i = 0; i < columnNumberFirstMatrix; i++){
+        sum += double.parse(firstMatrixControllers[i + addition].text) * double.parse(secondMatrixControllers[k + addition2].text);
+        k += columnNumber;
+        }
+      addition += columnNumberFirstMatrix;
+      addition2 += 1;
+      k = 0;
+      result.add(sum);
+    }
+  }
+
+  showResultPage(BuildContext context, int numberOfRows, int numberOfColumns,
+      result){
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -273,15 +228,30 @@ class Helper {
         ));
   }
 
-  showSecondMatrixPage(BuildContext context, int numberOfRows,
-      int numberOfColumns, List<TextEditingController> firstMatrixControllersFromLastPage) {
+  showSecondMatrixPage(BuildContext context, int numberOfRows, int columnNumberFirstMatrix,
+      int numberOfColumns,  List<TextEditingController> firstMatrixControllersFromLastPage,
+      bool isAddition, bool isMultiplication) {
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => SecondMatrixPage(rowNumber: numberOfRows,
-                columnNumber: numberOfColumns,
-                firstMatrixControllers: firstMatrixControllersFromLastPage)
+                columnNumberFirstMatrix: columnNumberFirstMatrix, columnNumber: numberOfColumns,
+                firstMatrixControllers: firstMatrixControllersFromLastPage,
+                isAddition: isAddition, isMultiplication: isMultiplication)
         ));
+  }
+
+  showColumnSizePage(BuildContext context, int numberOfRows,
+      int numberOfColumns, List<TextEditingController> firstMatrixControllersFromLastPage,
+      bool isAddition, bool isMultiplication) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ColumnSizePage(rowNumber: numberOfRows,
+                columnNumber: numberOfColumns,
+                firstMatrixControllers: firstMatrixControllersFromLastPage,
+                isAddition: isAddition, isMultiplication: isMultiplication))
+        );
   }
 
   double determinant2x2(double firstElement, double secondElement,
@@ -289,6 +259,16 @@ class Helper {
     double determinant = (firstElement * fourthElement) -
         (secondElement * thirdElement) ;
     return determinant;
+  }
+
+  List<double> transpone(int rowNumber, int columnNumber, List<TextEditingController> controllers){
+    List<double> result = [];
+    for(int i = 0; i < columnNumber; i++) {
+      for (int j = 0; j < rowNumber * columnNumber; j += columnNumber) {
+        result.add(double.parse(controllers[i + j].text));
+      }
+    }
+      return result;
   }
 
   List<double> transpone3x3(List<double> matrix){

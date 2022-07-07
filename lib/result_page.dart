@@ -109,75 +109,8 @@ class _ResultPageState extends State<ResultPage> {
     }
   }
   updateMatrix(){
-    switch(widget.rowNumber){
-      case(2): {
-        controllers[0].text = Fraction.fromDouble(widget.result[0]).toString();
-        controllers[1].text = Fraction.fromDouble(widget.result[1]).toString();
-        controllers[2].text = Fraction.fromDouble(widget.result[2]).toString();
-        controllers[3].text = Fraction.fromDouble(widget.result[3]).toString();
-      }
-      break;
-      case(3): {
-        controllers[0].text = Fraction.fromDouble(widget.result[0]).toString();
-        controllers[1].text = Fraction.fromDouble(widget.result[1]).toString();
-        controllers[2].text = Fraction.fromDouble(widget.result[2]).toString();
-        controllers[3].text = Fraction.fromDouble(widget.result[3]).toString();
-        controllers[4].text = Fraction.fromDouble(widget.result[4]).toString();
-        controllers[5].text = Fraction.fromDouble(widget.result[5]).toString();
-        controllers[6].text = Fraction.fromDouble(widget.result[6]).toString();
-        controllers[7].text = Fraction.fromDouble(widget.result[7]).toString();
-        controllers[8].text = Fraction.fromDouble(widget.result[8]).toString();
-      }
-      break;
-      case(4): {
-        controllers[0].text = Fraction.fromDouble(widget.result[0]).toString();
-        controllers[1].text = Fraction.fromDouble(widget.result[1]).toString();
-        controllers[2].text = Fraction.fromDouble(widget.result[2]).toString();
-        controllers[3].text = Fraction.fromDouble(widget.result[3]).toString();
-        controllers[4].text = Fraction.fromDouble(widget.result[4]).toString();
-        controllers[5].text = Fraction.fromDouble(widget.result[5]).toString();
-        controllers[6].text = Fraction.fromDouble(widget.result[6]).toString();
-        controllers[7].text = Fraction.fromDouble(widget.result[7]).toString();
-        controllers[8].text = Fraction.fromDouble(widget.result[8]).toString();
-        controllers[9].text = Fraction.fromDouble(widget.result[9]).toString();
-        controllers[10].text = Fraction.fromDouble(widget.result[10]).toString();
-        controllers[11].text = Fraction.fromDouble(widget.result[11]).toString();
-        controllers[12].text = Fraction.fromDouble(widget.result[12]).toString();
-        controllers[13].text = Fraction.fromDouble(widget.result[13]).toString();
-        controllers[14].text = Fraction.fromDouble(widget.result[14]).toString();
-        controllers[15].text = Fraction.fromDouble(widget.result[15]).toString();
-
-
-      }
-      break;
-      case(5): {
-        controllers[0].text = Fraction.fromDouble(widget.result[0]).toString();
-        controllers[1].text = Fraction.fromDouble(widget.result[1]).toString();
-        controllers[2].text = Fraction.fromDouble(widget.result[2]).toString();
-        controllers[3].text = Fraction.fromDouble(widget.result[3]).toString();
-        controllers[4].text = Fraction.fromDouble(widget.result[4]).toString();
-        controllers[5].text = Fraction.fromDouble(widget.result[5]).toString();
-        controllers[6].text = Fraction.fromDouble(widget.result[6]).toString();
-        controllers[7].text = Fraction.fromDouble(widget.result[7]).toString();
-        controllers[8].text = Fraction.fromDouble(widget.result[8]).toString();
-        controllers[9].text = Fraction.fromDouble(widget.result[9]).toString();
-        controllers[10].text = Fraction.fromDouble(widget.result[10]).toString();
-        controllers[11].text = Fraction.fromDouble(widget.result[11]).toString();
-        controllers[12].text = Fraction.fromDouble(widget.result[12]).toString();
-        controllers[13].text = Fraction.fromDouble(widget.result[13]).toString();
-        controllers[14].text = Fraction.fromDouble(widget.result[14]).toString();
-        controllers[15].text = Fraction.fromDouble(widget.result[15]).toString();
-        controllers[16].text = Fraction.fromDouble(widget.result[16]).toString();
-        controllers[17].text = Fraction.fromDouble(widget.result[17]).toString();
-        controllers[18].text = Fraction.fromDouble(widget.result[18]).toString();
-        controllers[19].text = Fraction.fromDouble(widget.result[19]).toString();
-        controllers[20].text = Fraction.fromDouble(widget.result[20]).toString();
-        controllers[21].text = Fraction.fromDouble(widget.result[21]).toString();
-        controllers[22].text = Fraction.fromDouble(widget.result[22]).toString();
-        controllers[23].text = Fraction.fromDouble(widget.result[23]).toString();
-        controllers[24].text = Fraction.fromDouble(widget.result[24]).toString();
-      }
-      break;
+    for(int i = 0; i < widget.columnNumber * widget.rowNumber; i++){
+      controllers[i].text = Fraction.fromDouble(widget.result[i]).toString();
     }
   }
 

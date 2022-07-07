@@ -5,11 +5,16 @@ import 'helper.dart';
 
 class SecondMatrixPage extends StatefulWidget {
   const SecondMatrixPage({super.key, required this.rowNumber,
-    required this.columnNumber, required this.firstMatrixControllers});
+    required this.columnNumberFirstMatrix, required this.columnNumber,
+    required this.firstMatrixControllers, required this.isAddition,
+    required this.isMultiplication});
 
   final int rowNumber;
+  final int columnNumberFirstMatrix;
   final int columnNumber;
   final List<TextEditingController> firstMatrixControllers;
+  final bool isAddition;
+  final bool isMultiplication;
 
   @override
   State<SecondMatrixPage> createState() => _SecondMatrixPage();
@@ -57,11 +62,18 @@ class _SecondMatrixPage extends State<SecondMatrixPage> {
           const SizedBox(height: 50),
           ElevatedButton(
               onPressed: () {
-                Helper().add(context, widget.rowNumber, widget.columnNumber,
-                    widget.firstMatrixControllers, secondMatrixControllers);
+                if (widget.isAddition) {
+                  Helper().add(context, widget.rowNumber, widget.columnNumber,
+                      widget.firstMatrixControllers, secondMatrixControllers);
+                } else if (widget.isMultiplication) {
+                  Helper().multiply(context, widget.rowNumber,
+                      widget.columnNumber, widget.columnNumberFirstMatrix,
+                      widget.firstMatrixControllers, secondMatrixControllers);
+                }
               },
               style: style,
-              child: const Text('RESULT') ),
+              child: const Text('RESULT')
+          ),
         ],
       ),
     );
