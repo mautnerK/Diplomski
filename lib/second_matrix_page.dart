@@ -4,7 +4,7 @@ import 'package:matrix_input/matrix_input.dart';
 import 'helper.dart';
 
 class SecondMatrixPage extends StatefulWidget {
-  const SecondMatrixPage({super.key, required this.rowNumber,
+  SecondMatrixPage({super.key, required this.rowNumber,
     required this.columnNumberFirstMatrix, required this.columnNumber,
     required this.firstMatrixControllers, required this.isAddition,
     required this.isMultiplication});
@@ -107,13 +107,24 @@ class _SecondMatrixPage extends State<SecondMatrixPage> {
   }
 
   createMatrix() {
-    createRow();
-    for(int i = 0; i < widget.rowNumber; i++) {
-      rows.add(Row(
-          children: rowElements
-      ));
-      rowElements = [];
+    if(widget.isAddition) {
       createRow();
+      for(int i = 0; i < widget.rowNumber; i++) {
+        rows.add(Row(
+            children: rowElements
+        ));
+        rowElements = [];
+        createRow();
+      }
+    } else if (widget.isMultiplication) {
+      createRow();
+      for(int i = 0; i < widget.columnNumberFirstMatrix; i++) {
+        rows.add(Row(
+            children: rowElements
+        ));
+        rowElements = [];
+        createRow();
+      }
     }
   }
 

@@ -4,8 +4,8 @@ import 'package:matrix_input/matrix_input.dart';
 import 'package:matrice/helper.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.rowNumber,
-    required this.columnNumber});
+  const HomePage(
+      {super.key, required this.rowNumber, required this.columnNumber});
 
   final int rowNumber;
   final int columnNumber;
@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   bool isButtonDisabled = true;
   TextEditingController scalarController = TextEditingController();
 
-
   @override
   void initState() {
     super.initState();
@@ -35,9 +34,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
-        primary: Colors.deepPurple,
-        minimumSize: const Size(200, 50)
-    );
+        primary: Colors.deepPurple, minimumSize: const Size(200, 50));
 
     double width = MediaQuery.of(context).size.width;
     createMarginSize(width);
@@ -53,7 +50,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(left: marginSize, top:30),
+            margin: EdgeInsets.only(left: marginSize, top: 30),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: rows,
@@ -61,21 +58,25 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 50),
           ElevatedButton(
-              onPressed: isButtonDisabled ? () =>
-                  Helper().checkRegularity(widget.rowNumber,
-                      widget.columnNumber, controllers ) : null,
+              onPressed: isButtonDisabled
+                  ? () => Helper().checkRegularity(
+                      widget.rowNumber, widget.columnNumber, controllers)
+                  : null,
               style: style,
-              child: const Text('REGULARITY') ),
-
+              child: const Text('REGULARITY')),
           const SizedBox(height: 5),
           ElevatedButton(
-              onPressed: isButtonDisabled ? () => Helper().makeInverse(context, widget.rowNumber, widget.columnNumber, controllers) : null,
+              onPressed: isButtonDisabled
+                  ? () => Helper().makeInverse(context, widget.rowNumber,
+                      widget.columnNumber, controllers)
+                  : null,
               style: style,
               child: const Text('INVERSE')),
           const SizedBox(height: 5),
           ElevatedButton(
               onPressed: () {
-                Helper().makeTransposition(context, widget.rowNumber, widget.columnNumber, controllers);
+                Helper().makeTransposition(context, widget.rowNumber,
+                    widget.columnNumber, controllers);
               },
               style: style,
               child: const Text('TRANSPOSITION')),
@@ -90,8 +91,15 @@ class _HomePageState extends State<HomePage> {
           ElevatedButton(
               onPressed: () {
                 isAddition = true;
-                Helper().showSecondMatrixPage(context, widget.rowNumber,
-                    widget.columnNumber, widget.columnNumber, controllers, isAddition, isMultiplication);
+                isMultiplication = false;
+                Helper().showSecondMatrixPage(
+                    context: context,
+                    numberOfRows: widget.rowNumber,
+                    columnNumberFirstMatrix: widget.columnNumber,
+                    numberOfColumns: widget.columnNumber,
+                    firstMatrixControllersFromLastPage: controllers,
+                    isAddition: isAddition,
+                    isMultiplication: isMultiplication);
               },
               style: style,
               child: const Text('ADDITION')),
@@ -99,8 +107,14 @@ class _HomePageState extends State<HomePage> {
           ElevatedButton(
               onPressed: () {
                 isMultiplication = true;
-                Helper().showColumnSizePage(context, widget.rowNumber,
-                    widget.columnNumber, controllers, isAddition, isMultiplication);
+                isAddition = false;
+                Helper().showColumnSizePage(
+                    context,
+                    widget.rowNumber,
+                    widget.columnNumber,
+                    controllers,
+                    isAddition,
+                    isMultiplication);
               },
               style: style,
               child: const Text('MULTIPLICATION')),
@@ -114,39 +128,30 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           Navigator.pop(context);
         },
-        child: const Text (
-          "Cancel"
-        )
-    );
+        child: const Text("Cancel"));
     Widget nextPageButton = TextButton(
         onPressed: () {
           Helper().multiplyWithScalar(double.parse(scalarController.text),
               context, widget.rowNumber, widget.columnNumber, controllers);
         },
-        child: const Text (
-          "Continue"
-        )
-    );
+        child: const Text("Continue"));
     AlertDialog alertDialog = AlertDialog(
-      title: const Text ("Input scalar"),
+      title: const Text("Input scalar"),
       content: TextField(
         controller: scalarController,
         keyboardType: TextInputType.number,
       ),
-      actions: [
-        cancelButton,
-        nextPageButton
-      ],
+      actions: [cancelButton, nextPageButton],
     );
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return alertDialog;
+      context: context,
+      builder: (BuildContext context) {
+        return alertDialog;
       },
     );
   }
 
-  Widget matrixInput(int nr){
+  Widget matrixInput(int nr) {
     return Container(
       margin: const EdgeInsets.all(3),
       child: MatrixInput(
@@ -155,19 +160,18 @@ class _HomePageState extends State<HomePage> {
           enabled: true,
           readOnly: false,
           width: 60,
-          matrixController:controllers[nr],
+          matrixController: controllers[nr],
           keyboardType: TextInputType.number,
           style: const TextStyle(
             fontSize: 15.0,
             color: Colors.blueAccent,
             fontWeight: FontWeight.bold,
-          )
-      ),
+          )),
     );
   }
 
   createRow() {
-    for(int i = 0; i < widget.columnNumber; i++) {
+    for (int i = 0; i < widget.columnNumber; i++) {
       nr++;
       rowElements.add(matrixInput(nr));
     }
@@ -175,10 +179,8 @@ class _HomePageState extends State<HomePage> {
 
   createMatrix() {
     createRow();
-    for(int i = 0; i < widget.rowNumber; i++) {
-      rows.add(Row(
-          children: rowElements
-      ));
+    for (int i = 0; i < widget.rowNumber; i++) {
+      rows.add(Row(children: rowElements));
       rowElements = [];
       createRow();
     }
@@ -191,17 +193,32 @@ class _HomePageState extends State<HomePage> {
   }
 
   createMarginSize(width) {
-    switch(widget.columnNumber) {
-      case 1: {marginSize = width*0.41;}
-      break;
-      case 2: {marginSize = width*0.35;}
-      break;
-      case 3: {marginSize = width*0.26;}
-      break;
-      case 4: {marginSize = width*0.17;}
-      break;
-      case 5: {marginSize = width*0.08;}
-      break;
+    switch (widget.columnNumber) {
+      case 1:
+        {
+          marginSize = width * 0.41;
+        }
+        break;
+      case 2:
+        {
+          marginSize = width * 0.35;
+        }
+        break;
+      case 3:
+        {
+          marginSize = width * 0.26;
+        }
+        break;
+      case 4:
+        {
+          marginSize = width * 0.17;
+        }
+        break;
+      case 5:
+        {
+          marginSize = width * 0.08;
+        }
+        break;
     }
   }
 
@@ -269,14 +286,5 @@ class _HomePageState extends State<HomePage> {
     controllers.add(controller29);
     controllers.add(controller30);
     controllers.add(controller31);
-
   }
 }
-
-
-
-
-
-
-
-

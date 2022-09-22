@@ -5,9 +5,13 @@ import 'package:stepo/stepo.dart';
 import 'helper.dart';
 
 class ColumnSizePage extends StatefulWidget {
-  const ColumnSizePage({super.key, required this.rowNumber,
-  required this.columnNumber, required this.firstMatrixControllers,
-  required this.isAddition, required this.isMultiplication});
+  const ColumnSizePage(
+      {super.key,
+      required this.rowNumber,
+      required this.columnNumber,
+      required this.firstMatrixControllers,
+      required this.isAddition,
+      required this.isMultiplication});
 
   final int rowNumber;
   final int columnNumber;
@@ -25,9 +29,7 @@ class _ColumnSizePage extends State<ColumnSizePage> {
   @override
   Widget build(BuildContext context) {
     final ButtonStyle style = ElevatedButton.styleFrom(
-        primary: Colors.deepPurple,
-        minimumSize: const Size(200, 50)
-    );
+        primary: Colors.deepPurple, minimumSize: const Size(200, 50));
 
     return Scaffold(
       appBar: AppBar(
@@ -51,10 +53,10 @@ class _ColumnSizePage extends State<ColumnSizePage> {
                 backgroundColor: Colors.deepPurple,
                 textColor: Colors.white,
                 iconColor: Colors.white,
-                initialCounter:	1,
+                initialCounter: 1,
                 lowerBound: 1,
                 upperBound: 5,
-                width:100,
+                width: 100,
                 animationDuration: const Duration(milliseconds: 100),
                 onIncrementClicked: (counter) {
                   numberOfColumns = numberOfColumns + 1;
@@ -68,12 +70,18 @@ class _ColumnSizePage extends State<ColumnSizePage> {
               const SizedBox(height: 50),
               ElevatedButton(
                   onPressed: () {
-                    Helper().showSecondMatrixPage(context, widget.rowNumber,
-                         numberOfColumns, widget.columnNumber, widget.firstMatrixControllers,
-                        widget.isAddition, widget.isMultiplication);
+                    Helper().showSecondMatrixPage(
+                        context: context,
+                        numberOfRows: widget.rowNumber,
+                        columnNumberFirstMatrix: widget.columnNumber,
+                        numberOfColumns: numberOfColumns,
+                        firstMatrixControllersFromLastPage:
+                            widget.firstMatrixControllers,
+                        isAddition: widget.isAddition,
+                        isMultiplication: widget.isMultiplication);
                   },
                   style: style,
-                  child: const Text('INPUT SECOND MATRIX') ),
+                  child: const Text('INPUT SECOND MATRIX')),
             ],
           ),
         ],
